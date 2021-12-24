@@ -1,0 +1,37 @@
+packages:
+  - name: docker
+    type: docker
+    srcs:
+      - "startup.sh"
+      - "supervisor-ide-config_stable.json"
+    deps:
+      - components/code-desktop/status:app
+    argdeps:
+      - imageRepoBase
+    config:
+      dockerfile: gorpa.Dockerfile
+      metadata:
+        helm-component: application.desktopIdeImages.codeDesktop
+      buildArgs:
+        SUPERVISOR_IDE_CONFIG: supervisor-ide-config_stable.json
+      image:
+        - ${imageRepoBase}/code-desktop:${version}
+        - ${imageRepoBase}/code-desktop:commit-${__git_commit}
+  - name: docker-insiders
+    type: docker
+    srcs:
+      - "startup.sh"
+      - "supervisor-ide-config_insiders.json"
+    deps:
+      - components/code-desktop/status:app
+    argdeps:
+      - imageRepoBase
+    config:
+      dockerfile: gorpa.Dockerfile
+      metadata:
+        helm-component: application.desktopIdeImages.codeDesktopInsiders
+      buildArgs:
+        SUPERVISOR_IDE_CONFIG: supervisor-ide-config_insiders.json
+      image:
+        - ${imageRepoBase}/code-desktop-insiders:${version}
+        - ${imageRepoBase}/code-desktop-insiders:commit-${__git_commit}
