@@ -1,0 +1,17 @@
+packages:
+  - name: docker
+    type: docker
+    srcs:
+      - "startup.sh"
+      - "package-libs.sh"
+      - "supervisor-ide-config.json"
+      - "bin/*"
+    argdeps:
+      - imageRepoBase
+    config:
+      dockerfile: gorpa.Dockerfile
+      metadata:
+        helm-component: application.theiaImage
+      image:
+        - ${imageRepoBase}/theia:${version}
+        - ${imageRepoBase}/theia:commit-${__git_commit}
