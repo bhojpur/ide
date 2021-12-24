@@ -1,2 +1,2 @@
 #!/usr/bin/env sh
-gp open "$@"
+bp open "$@"
